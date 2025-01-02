@@ -1,4 +1,4 @@
-FROM wordpress:6.4-php8.3-apache
+FROM wordpress6.7-php8.3-apache
 
 # Debian에서 패키지 설치
 RUN apt-get update && \
@@ -21,7 +21,9 @@ RUN cd /tmp && \
 # Xdebug 설정 추가
 RUN echo "zend_extension=xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    # vscode에서 작동하기 위해서
+    && echo "xdebug.start_with_request=true" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 # Since this Dockerfile extends the official Docker image `wordpress`,
 # and since `wordpress`, in turn, extends the official Docker image `php`,
